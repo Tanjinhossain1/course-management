@@ -1,43 +1,37 @@
-import * as yup from 'yup';
+import * as yup from 'yup'; 
 
-// Define a Yup schema for the student data
 const studentSchema = yup.object().shape({
-  id: yup.string().required('ID is required'),
-  name: yup.object().shape({
-    firstName: yup.string().required('First name is required'),
-    lastName: yup.string().required('Last name is required'),
-    middleName: yup.string(),
+  student: yup.object().shape({
+    name: yup.object().shape({
+      firstName: yup.string().required("Field Is Required"),
+      lastName: yup.string().required("Field Is Required"),
+      middleName: yup.string(),
+    }),
+    gender: yup.string().oneOf(['male', 'female', 'other']).required("Field Is Required"),
+    dateOfBirth: yup.string().matches(/^\d{2}-\d{2}-\d{4}$/).required("Field Is Required"),
+    email: yup.string().email().required("Field Is Required"),
+    contactNo: yup.string().required("Field Is Required"),
+    emergencyContactNo: yup.string().required("Field Is Required"),
+    bloodGroup: yup.string().required("Field Is Required"),
+    presentAddress: yup.string().required("Field Is Required"),
+    permanentAddress: yup.string().required("Field Is Required"),
+    guardian: yup.object().shape({
+      fatherName: yup.string().required("Field Is Required"),
+      fatherOccupation: yup.string().required("Field Is Required"),
+      fatherContactNo: yup.string().required("Field Is Required"),
+      motherName: yup.string().required("Field Is Required"),
+      motherOccupation: yup.string().required("Field Is Required"),
+      motherContactNo: yup.string().required("Field Is Required"),
+      address: yup.string().required("Field Is Required"),
+    }),
+    localGuardian: yup.object().shape({
+      name: yup.string().required("Field Is Required"),
+      occupation: yup.string().required("Field Is Required"),
+      contactNo: yup.string().required("Field Is Required"),
+      address: yup.string().required("Field Is Required"),
+    }),
   }),
-  gender: yup.string().oneOf(['male', 'female'], 'Invalid gender').required('Gender is required'),
-  dateOfBirth: yup.date().required('Date of birth is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  contactNo: yup.string().required('Contact number is required'),
-  emergencyContactNo: yup.string().required('Emergency contact number is required'),
-  bloodGroup: yup.string().oneOf(
-    ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-    'Invalid blood group'
-  ),
-  presentAddress: yup.string().required('Present address is required'),
-  permanentAddress: yup.string().required('Permanent address is required'),
-  guardian: yup.object().shape({
-    fatherName: yup.string().required('Father name is required'),
-    fatherOccupation: yup.string().required('Father occupation is required'),
-    fatherContactNo: yup.string().required('Father contact number is required'),
-    motherName: yup.string().required('Mother name is required'),
-    motherOccupation: yup.string().required('Mother occupation is required'),
-    motherContactNo: yup.string().required('Mother contact number is required'),
-    address: yup.string().required('Guardian address is required'),
-  }),
-  localGuardian: yup.object().shape({
-    name: yup.string().required('Local guardian name is required'),
-    occupation: yup.string().required('Local guardian occupation is required'),
-    contactNo: yup.string().required('Local guardian contact number is required'),
-    address: yup.string().required('Local guardian address is required'),
-  }),
-  academicFaculty: yup.string().required('Academic faculty is required'),
-  academicDepartment: yup.string().required('Academic department is required'),
-  academicSemester: yup.string().required('Academic semester is required'),
-  profileImage: yup.string().url('Invalid URL'),
+  password: yup.string().required("Field Is Required"),
 });
-
+ 
 export default studentSchema;

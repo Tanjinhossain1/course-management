@@ -38,7 +38,7 @@ const SideBar = () => {
           marginBottom: "1rem",
         }}
       >
-        PH-University
+     TH U-M
       </div>
       <Menu
         theme="dark"

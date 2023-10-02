@@ -27,7 +27,7 @@ const steps = [
 export default function StudentCreatePage() {
   const handleStudentSubmit = async (data: any) => {
       try {
-          console.log('student ', data)
+          console.log('student ', data);
       } catch (error) {
         console.error(error)
       }

@@ -16,7 +16,8 @@ export default function StudentInfo() {
            margin: "10px"
         }}>
             <p style={{fontSize: "20px",marginBottom: "10px"}}>student Details</p>
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+
+<Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
 
 <Col xl={6} className="gutter-row" span={8} lg={6}>
   <FormInput type='text' name='student.name.firstName' size='large' label='First Name' />
@@ -31,7 +32,7 @@ export default function StudentInfo() {
 </Col>
 
 <Col   className="gutter-row" span={8} lg={6}>
-<FormInput type='password' name='password' size='large' label='Password' />
+<FormInput type='text' name='password' size='large' label='Password' />
 </Col> 
 
 <Col style={{marginTop: "10px"}} className="gutter-row" span={8} lg={6}>

@@ -11,14 +11,14 @@ interface StepsType {
     title: string,
     content?: React.ReactElement | React.ReactNode
 }
-interface StepFormPropsTyps {
+interface StepFormPropsTypes {
   steps: StepsType[];
   submitHandler: (data: any) => void;
   redirectUrl?: string; 
 }
   
-const StepsForm= ({steps, submitHandler,redirectUrl}:StepFormPropsTyps) => {
-  const router= useRouter()
+const StepsForm = ({steps, submitHandler,redirectUrl}:StepFormPropsTypes) => {
+  const router= useRouter();
   const [current, setCurrent] = useState<number>(
     !!getTOLocalStorage("step") ? Number(JSON.parse(getTOLocalStorage("step") as string).step) : 0 
   );
@@ -42,7 +42,7 @@ const StepsForm= ({steps, submitHandler,redirectUrl}:StepFormPropsTyps) => {
 
   const handleFinalSubmit = (data: any) =>{
     submitHandler(data); 
-    setCurrent(0);
+    // setCurrent(0);
     if(redirectUrl){
       router.push(redirectUrl)
     }
@@ -50,9 +50,9 @@ const StepsForm= ({steps, submitHandler,redirectUrl}:StepFormPropsTyps) => {
 
   return (
     <>
-      <Steps current={current} items={items} /> 
-        <Form submitHandler={handleFinalSubmit} resolver={yupResolver(studentSchema)} >
-      <div >{steps[current].content}</div>
+      <Steps current={current} items={items} />
+      <Form submitHandler={handleFinalSubmit} resolver={yupResolver(studentSchema)}>
+      <div>{steps[current].content}</div>
       <div style={{ marginTop: 24 }}>
         {current < steps.length - 1 && (
           <Button type="primary" onClick={() => next()}>
