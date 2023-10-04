@@ -14,7 +14,14 @@ export type ResponseErrorType = {
     message?: string;
     errorMessages?: IGenericErrorMessages[]
 };
+
 export interface IGenericErrorMessages {
     path: string | number;
     message: string
+}
+
+export interface PaginatedTypes {
+    total: number;
+    page: number,
+    limit: number
 }

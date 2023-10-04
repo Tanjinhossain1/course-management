@@ -2,16 +2,22 @@
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import { useCreateDepartmentMutation } from '@/redux/api/departmentApi';
 import { getUserInfo } from '@/services/auth.service' 
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, message } from 'antd';
 import React from 'react'
 
 export default function CreateDepartmentPage() { 
+  const [createDepartment] = useCreateDepartmentMutation()
   const onSubmit = async (data: any) => {
-    try {
-      console.log(data);
+    message.loading("Waiting...")
+    try { 
+      console.log('data',data);
+     await createDepartment(data)
+     message.success("Department Create Successfully")
     } catch (err: any) {
       console.error(err.message);
+      message.error(err.message)
     }
   };
   const base = "super_admin";
