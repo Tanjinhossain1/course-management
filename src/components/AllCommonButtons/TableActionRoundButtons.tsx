@@ -7,9 +7,11 @@ interface TableActionRoundButtonsPropsType{
     color?: string;
     styles?: any;
     type?: "link" | "text" | "default" | "primary" | "dashed" ;
-    size?: "large" | "middle" | "small"
+    size?: "large" | "middle" | "small";
+    onClick?: (data?: any) => void
+    
 }
-export default function TableActionRoundButtons({icon,backgroundColor,styles,type,size}: TableActionRoundButtonsPropsType) {
+export default function TableActionRoundButtons({icon,backgroundColor,styles,type,size, onClick}: TableActionRoundButtonsPropsType) {
   return (
     
 <Button
@@ -25,6 +27,7 @@ export default function TableActionRoundButtons({icon,backgroundColor,styles,typ
           borderRadius: '50%', 
           ...styles,
       }}
+      onClick={onClick}
     />
   )
 }

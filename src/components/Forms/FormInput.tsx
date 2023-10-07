@@ -30,7 +30,7 @@ const FormInput = ({
 
   return (
     <>
-      {label ? label : null}
+      <span style={{marginRight: "8px"}}>{label ? label : null}</span>
       <Controller
         control={control}
         name={name}

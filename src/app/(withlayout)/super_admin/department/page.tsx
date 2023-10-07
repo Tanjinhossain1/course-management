@@ -3,6 +3,7 @@ import TableActionRoundButtons from "@/components/AllCommonButtons/TableActionRo
 import TableListViewer from "@/components/ui/TableListViewer";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useGetAllDepartmentQuery } from "@/redux/api/departmentApi";
+import { useDebounced } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
 import { PaginatedTypes } from "@/types";
 import { TrimToUpperCase, fullDateFormat } from "@/utils/utils";
@@ -11,10 +12,12 @@ import {
   EditOutlined,
   EyeFilled,
   EyeOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
+import dayjs from "dayjs";
 
 export default function DepartmentPage() {
   const { role } = getUserInfo() as any;
@@ -23,11 +26,22 @@ export default function DepartmentPage() {
   const [page, setPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
+  // query["searchTerm"] = searchTerm;
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  })
+
+  if(!!debouncedTerm){
+    query["searchTerm"] = debouncedTerm;
+  }
 
   const { data, isLoading } = useGetAllDepartmentQuery(query);
 
@@ -49,31 +63,24 @@ export default function DepartmentPage() {
       dataIndex: "createdAt",
       sorter: true,
       render: (createdAt: string) => {
-        return fullDateFormat(createdAt);
+        return createdAt && dayjs(createdAt).format("MMM D, YYYY hh:mm A")
       },
     },
     {
       title: "Action",
       render: (data: any) => {
         return (
-          <Fragment>  
-            <TableActionRoundButtons
-              icon={<EyeFilled />}
-              styles={{
-                border: "1px solid #d9d9d9",
-                color: "#333",
-                transition: "background-color 0.3s",
-              }}
-              backgroundColor="#fff"
-            />
+          <Fragment>
+            <Link href={`/super_admin/department/edit/${data?.id}`}>
             <TableActionRoundButtons
               styles={{ margin: "0px 8px" }}
               icon={<EditOutlined />}
               backgroundColor="#52c41a"
             />
-            <TableActionRoundButtons
+              </Link>
+           <TableActionRoundButtons
               icon={<DeleteOutlined />}
-              backgroundColor="#ff4d4f"
+              backgroundColor="#ff4d4f" 
             />
           </Fragment>
         );
@@ -92,6 +99,11 @@ export default function DepartmentPage() {
     console.log("onchange paginated");
   };
 
+  const resetFilters = () =>{
+    setSortBy("")
+    setSortOrder("")
+    setSearchTerm("")
+  }
   return (
     <div>
       <UMBreadCrumb
@@ -103,9 +115,34 @@ export default function DepartmentPage() {
         ]}
       />
       <h1>Manage Department</h1>
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        margin: '5px'
+      }}>
+      <Input 
+      type="text"
+      size="large"
+      placeholder="Search"
+      style={{
+        width: "25%"
+      }}
+      onChange={(e)=>{
+        console.log('first  ', e.target.value)
+        setSearchTerm(e.target.value)
+      }}
+      />
+      <div> 
       <Link href={"/super_admin/department/create"}>
-        <Button>Create Department</Button>
-      </Link>
+        <Button style={{textAlign: "end"}} type="primary">Create Department</Button>
+      </Link> 
+      {
+        !!sortBy || !!sortOrder || !!searchTerm && <Button onClick={resetFilters} style={{marginLeft: "5px"}} type="primary">
+          <ReloadOutlined />
+        </Button>
+      }
+      </div>
+      </div>
       <TableListViewer
         loading={isLoading}
         columns={tableColumn}
