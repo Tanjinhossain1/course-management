@@ -2,6 +2,7 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import { waitingMessageTimer } from "@/constants/commonTimers";
 import {
     useDeleteDepartmentMutation,
   useDepartmentQuery,
@@ -21,7 +22,7 @@ export default function DepartmentEditPage({ params }: DPPropsType) {
   const [updateDepartment] = useUpdateDepartmentMutation();
   const [deleteDepartment] = useDeleteDepartmentMutation();
   const onSubmit = async (value: { title: string }) => {
-    message.loading("Waiting...");
+    message.loading("Waiting...",waitingMessageTimer);
     try {
       await updateDepartment({ id, body: value });
       message.success("Department Update Successfully");
@@ -35,7 +36,7 @@ export default function DepartmentEditPage({ params }: DPPropsType) {
     title: data?.title,
   };
   const DeleteDepartment = async () =>{
-    message.loading("Waiting...");
+    message.loading("Waiting...",waitingMessageTimer);
     try {
       await deleteDepartment(id);
       message.success("Department Delete Successfully");

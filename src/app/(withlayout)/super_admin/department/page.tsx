@@ -2,7 +2,7 @@
 import TableActionRoundButtons from "@/components/AllCommonButtons/TableActionRoundButtons";
 import TableListViewer from "@/components/ui/TableListViewer";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { useGetAllDepartmentQuery } from "@/redux/api/departmentApi";
+import { useDeleteDepartmentMutation, useGetAllDepartmentQuery } from "@/redux/api/departmentApi";
 import { useDebounced } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
 import { PaginatedTypes } from "@/types";
@@ -14,13 +14,17 @@ import {
   EyeOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
 import dayjs from "dayjs";
+import { waitingMessageTimer } from "@/constants/commonTimers";
 
 export default function DepartmentPage() {
   const { role } = getUserInfo() as any;
+  
+  const [deleteDepartment] = useDeleteDepartmentMutation();
+
   const query: Record<string, any> = {};
   const [size, setSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
@@ -81,6 +85,7 @@ export default function DepartmentPage() {
            <TableActionRoundButtons
               icon={<DeleteOutlined />}
               backgroundColor="#ff4d4f" 
+              onClick={()=>DeleteDepartment(data?.id)}
             />
           </Fragment>
         );
@@ -103,6 +108,17 @@ export default function DepartmentPage() {
     setSortBy("")
     setSortOrder("")
     setSearchTerm("")
+  }
+
+  const DeleteDepartment = async (id: string) =>{
+    message.loading("Waiting...",waitingMessageTimer);
+    try {
+      await deleteDepartment(id); 
+      message.warning("Department Delete Successfully"); 
+    } catch (err: any) {
+      console.error(err.message);
+      message.error(err.message);
+    }
   }
   return (
     <div>

@@ -2,6 +2,7 @@
 import Form from '@/components/Forms/Form';
 import FormInput from '@/components/Forms/FormInput';
 import UMBreadCrumb from '@/components/ui/UMBreadCrumb';
+import { waitingMessageTimer } from '@/constants/commonTimers';
 import { useCreateDepartmentMutation } from '@/redux/api/departmentApi';
 import { getUserInfo } from '@/services/auth.service' 
 import { Button, Col, Row, message } from 'antd';
@@ -10,7 +11,7 @@ import React from 'react'
 export default function CreateDepartmentPage() { 
   const [createDepartment] = useCreateDepartmentMutation()
   const onSubmit = async (data: any) => {
-    message.loading("Waiting...")
+    message.loading("Waiting...",waitingMessageTimer)
     try { 
       console.log('data',data);
      await createDepartment(data)

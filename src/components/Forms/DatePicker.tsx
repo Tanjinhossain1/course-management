@@ -34,7 +34,7 @@ onChangeFunc,
         control={control}
         name={name}
         render={({ field }) =>
-        <DatePicker style={{width: "100%"}} size={size} value={dayjs(field.value)|| ""} onChange={onChange} />
+        <DatePicker style={{width: "100%"}} size={size} defaultValue={dayjs(field.value)|| ""} onChange={onChange} />
 
         }
       />
