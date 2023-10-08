@@ -1,7 +1,9 @@
-import React from 'react'
-
-export default function FacultyPage() {
+const FacultyPage = () => {
   return (
-    <div><h1>FacultyPage</h1></div>
-  )
-}
+    <div>
+      <h1>FacultyPage</h1>
+    </div>
+  );
+};
+
+export default FacultyPage;

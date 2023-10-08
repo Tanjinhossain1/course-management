@@ -1,10 +1,9 @@
-import React from 'react'
-
- const StudentPage = () => {
+const StudentPage = () => {
   return (
     <div>
-        <h1>This page is For Student</h1>
+      <h1>This page is for student</h1>
     </div>
-  )
-}
-export default StudentPage
+  );
+};
+
+export default StudentPage;
