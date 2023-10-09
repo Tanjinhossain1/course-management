@@ -2,7 +2,7 @@
 
 import ACSemesterField from "@/components/Forms/ACSemesterField";
 import Form from "@/components/Forms/Form";
-import FormDatePicker from "@/components/Forms/FormDatePicker";
+import FormDatePicker from "@/components/Forms/DatePicker";
 import FormInput from "@/components/Forms/FormInput";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";

@@ -2,7 +2,7 @@
 
 import ACSemesterField from "@/components/Forms/ACSemesterField";
 import Form from "@/components/Forms/Form";
-import FormDatePicker from "@/components/Forms/FormDatePicker";
+import FormDatePicker from "@/components/Forms/DatePicker";
 import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useAddSemesterRegistrationsMutation } from "@/redux/api/semesterRegistrationApi";

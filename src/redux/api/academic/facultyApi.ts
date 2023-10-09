@@ -5,7 +5,7 @@ import { tagTypes } from "@/redux/tag-types";
 
 const ACADEMIC_FACULTY_URL = "/academic-faculties";
 
-export const academicFacultyApi = baseApi.injectEndpoints({
+export const academicFacultyApi = baseCoreApi.injectEndpoints({
   endpoints: (build) => ({
     // get all academic faculties api endpoint
     academicFaculties: build.query({
@@ -17,6 +17,7 @@ export const academicFacultyApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: IAcademicFaculty[], meta: IMeta) => {
+        console.log('first response', response,meta)
         return {
           academicFaculties: response,
           meta,

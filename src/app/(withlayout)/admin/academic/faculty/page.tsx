@@ -41,8 +41,7 @@ const ACFacultyPage = () => {
   if (!!debouncedTerm) {
     query["searchTerm"] = debouncedTerm;
   }
-  const { data, isLoading } = useAcademicFacultiesQuery({ ...query });
-
+  const { data, isLoading } = useAcademicFacultiesQuery({ ...query }); 
   const academicFaculties = data?.academicFaculties;
   const meta = data?.meta;
 
